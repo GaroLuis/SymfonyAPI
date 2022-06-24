@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  app:
+    build: docker/php-fpm
+    environment:
+      - XDEBUG_REMOTE_HOST=10.200.0.1
+      - XDEBUG_REMOTE_PORT=9999
+    ports:
+      - "8000:8000"
+      - "2222:22"
+    volumes:
+      - ./:/var/www/symfony-api
+    networks:
+      - app
+  server:
+    build: docker/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/symfony-api
+    networks:
+      app:
+        aliases:
+          - symfony-api.local
+  db:
+    image: postgres:13
+    environment:
+      TZ: Europe/London
+      PGTZ: Europe/London
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: default
+    ports:
+      - "5432:5432"
+    networks:
+    - app
