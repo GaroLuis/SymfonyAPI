@@ -26,3 +26,7 @@ services:
     App\Listener\HashPasswordListener:
         tags:
             - { name: doctrine.event_subscriber }
+
+    App\Listener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
