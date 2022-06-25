@@ -18,7 +18,7 @@ class Todo
     private string $text;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    private ?\DateTimeImmutable $completedAt;
+    private ?\DateTimeImmutable $completedAt = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
@@ -27,15 +27,15 @@ class Todo
     #[ORM\JoinColumn(name: 'user_id', nullable: false)]
     private User $user;
 
-    public function __construct(string $text, User $user)
+    public function __construct(?string $id , string $text, User $user)
     {
-        $this->id = Uuid::v4()->toRfc4122();
+        $this->id = $id ?? Uuid::v4()->toRfc4122();
         $this->text = $text;
         $this->user = $user;
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

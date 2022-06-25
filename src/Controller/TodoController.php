@@ -28,7 +28,7 @@ class TodoController extends AbstractController
         $user = $this->getUser();
         $content = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
-        $this->todoRepository->add($content['text'] ?? '', $user);
+        $this->todoRepository->add($content['id'] ?? null, $content['text'] ?? '', $user);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -39,7 +39,14 @@ class TodoController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        $todos = $this->todoRepository->getTodosByUser($user);
+        $todos = array_map(static function (Todo $todo) {
+            return [
+                'id' => $todo->getId(),
+                'text' => $todo->getText(),
+                'completed_at' => $todo->getCompletedAt() ? $todo->getCompletedAt()->format('d/m/Y') : null,
+                'created_at' => $todo->getCreatedAt()->format('d/m/Y')
+            ];
+        },$this->todoRepository->getTodosByUser($user));
 
         return $this->json($todos);
     }

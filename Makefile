@@ -25,8 +25,15 @@ install: ## install project dependencies
 	docker-compose run --user=${u} --rm ${s} sh -lc 'composer install'
 .PHONY: db
 db: ## create database, migrations and fixtures
-	docker-compose run --user=${u} --rm ${s} sh -lc 'cd apps/api && bin/console doctrine:database:create --if-not-exists'
-	docker-compose run --user=${u} --rm ${s} sh -lc 'cd apps/api && bin/console doctrine:migration:migrate --no-interaction'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:database:create --if-not-exists'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:migration:migrate --no-interaction'
+.PHONY: test
+test: ## Run all the tests suites
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:database:drop --force  --if-exists --env=test'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:database:create  --if-not-exists --env=test'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:migration:migrate --quiet --no-interaction --env=test'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/console hautelook:fixtures:load -n --env=test'
+	docker-compose run --user=${u} --rm ${s} sh -lc 'bin/phpunit'
 .PHONY: logs
 logs: ## look for 's' service logs, make s=php logs
 	docker-compose logs -f ${s}

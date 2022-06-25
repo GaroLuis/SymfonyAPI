@@ -32,9 +32,9 @@ class TodoRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function add(string $text, User $user): void
+    public function add(?string $id, string $text, User $user): void
     {
-        $todo = new Todo($text, $user);
+        $todo = new Todo($id, $text, $user);
 
         $this->getEntityManager()->persist($todo);
         $this->getEntityManager()->flush();
