@@ -1,0 +1,5 @@
+App\Entity\User:
+    user1:
+        __construct:
+            username: 'User'
+            plainPassword: '123456'
