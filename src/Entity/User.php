@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -28,11 +30,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword;
 
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Todo::class, orphanRemoval: true)]
+    private Collection $todos;
+
     public function __construct(string $username, string $plainPassword)
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->username = $username;
         $this->plainPassword = $plainPassword;
+        $this->todos = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -116,5 +122,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getTodos(): Collection
+    {
+        return $this->todos;
+    }
+
+    public function addTodo(Todo $todo): self
+    {
+        if (!$this->todos->contains($todo)) {
+            $this->todos[] = $todo;
+            $todo->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTodo(Todo $todo): self
+    {
+        if ($this->todos->removeElement($todo)) {
+            // set the owning side to null (unless already changed)
+            if ($todo->getUser() === $this) {
+                $todo->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
