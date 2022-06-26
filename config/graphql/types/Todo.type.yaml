@@ -1,0 +1,11 @@
+Todo:
+    type: object
+    config:
+        description: "A todo"
+        fields:
+            id:
+                type: "String!" #The exclamation mean not nullable
+                description: "The ID of the todo."
+            text:
+                type: "String"
+                description: "Text of the Todo"

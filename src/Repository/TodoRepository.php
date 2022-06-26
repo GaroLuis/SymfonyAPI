@@ -23,11 +23,19 @@ class TodoRepository extends ServiceEntityRepository
         parent::__construct($registry, Todo::class);
     }
 
-    public function getTodosByUser(User $user)
+    public function getTodosByUser(User $user, bool $completed = null)
     {
         $qb = $this->createQueryBuilder('todos')
             ->andWhere('todos.user = :user')
             ->setParameter('user', $user);
+
+        if (null !== $completed) {
+            if ($completed) {
+                $qb->andWhere('todos.completedAt IS NOT NULL');
+            } else {
+                $qb->andWhere('todos.completedAt IS NULL');
+            }
+        }
 
         return $qb->getQuery()->getResult();
     }

@@ -1,0 +1,14 @@
+Query:
+    type: object
+    config:
+        description: ''
+        fields:
+            allTodos:
+                type: '[Todo]'
+                resolve: "@=resolver('all_todos', [args])"
+            todosByCompleted:
+                type: '[Todo]'
+                args:
+                    completed:
+                        type: 'Boolean'
+                resolve: "@=resolver('todo_by_completed', [args])"
