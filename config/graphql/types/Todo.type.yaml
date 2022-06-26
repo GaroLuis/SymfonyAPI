@@ -9,3 +9,7 @@ Todo:
             text:
                 type: "String"
                 description: "Text of the Todo"
+            completedAt:
+                type: "DateTime"
+            createdAt:
+                type: "DateTime"
