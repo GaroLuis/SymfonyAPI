@@ -9,6 +9,67 @@
 			"name": "Todos",
 			"item": [
 				{
+					"name": "graphql",
+					"item": [
+						{
+							"name": "AllTodos",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\n  allTodos {id, text, completedAt, createdAt}\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{HOSTNAME}}/graphql/",
+									"host": [
+										"{{HOSTNAME}}"
+									],
+									"path": [
+										"graphql",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TodosByCompleted",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\n  todosByCompleted(completed: true) {id, text, completedAt}\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{HOSTNAME}}/graphql/",
+									"host": [
+										"{{HOSTNAME}}"
+									],
+									"path": [
+										"graphql",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Add",
 					"request": {
 						"method": "POST",
