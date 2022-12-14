@@ -101,6 +101,28 @@
 					"response": []
 				},
 				{
+					"name": "Edit Copy",
+					"id": "2c0098bd-aa4a-447a-a78a-6aaa9ec0761f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc39"
+					},
+					"response": []
+				},
+				{
 					"name": "List",
 					"id": "83bee5a8-c4af-4ea0-bb73-cd7aba0d4c7e",
 					"protocolProfileBehavior": {
@@ -129,28 +151,6 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "{{HOSTNAME}}/todos"
-					},
-					"response": []
-				},
-				{
-					"name": "Edit Copy",
-					"id": "2c0098bd-aa4a-447a-a78a-6aaa9ec0761f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc39"
 					},
 					"response": []
 				}
@@ -238,12 +238,12 @@
 	],
 	"variable": [
 		{
-			"id": "1967a332-7a06-4a28-a38a-fcb596ee64e6",
+			"id": "ec8c0a03-4b32-4486-9a68-5b0c8e9fc5f9",
 			"key": "BEARER_TOKEN",
 			"value": ""
 		},
 		{
-			"id": "c876bd72-f60e-4b0b-9fc8-2040d6877f0c",
+			"id": "d1605f1e-f619-4a73-8a51-fe167a3c2a9e",
 			"key": "HOSTNAME",
 			"value": "symfony-api.local"
 		}
