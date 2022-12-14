@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "34bac59a-470e-4828-bac0-c3b9b1e77712",
+		"name": "Symfony API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "7417842-34bac59a-470e-4828-bac0-c3b9b1e77712"
+	},
+	"item": [
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "graphql",
+					"item": [
+						{
+							"name": "AllTodos",
+							"id": "1bd5051d-565d-4771-994e-ada5239ce4a3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{HOSTNAME}}/graphql/",
+									"host": [
+										"{{HOSTNAME}}"
+									],
+									"path": [
+										"graphql",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TodosByCompleted",
+							"id": "9ddded6b-6313-4489-b8b5-49509a1f3d36",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{HOSTNAME}}/graphql/",
+									"host": [
+										"{{HOSTNAME}}"
+									],
+									"path": [
+										"graphql",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "683303d5-6b43-4867-9b32-858f2c578762"
+				},
+				{
+					"name": "Add",
+					"id": "62bd59bb-7e12-4f8f-a928-fc35adc5a233",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Testing!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTNAME}}/todos",
+							"host": [
+								"{{HOSTNAME}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"id": "9f25fc43-bec7-4001-8093-729b5c0035f1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc39",
+							"host": [
+								"{{HOSTNAME}}"
+							],
+							"path": [
+								"todos",
+								"d1964d86-ce7d-4464-81fa-6d08bbbfbc39"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (PUT)",
+					"id": "46d8c4b0-33b2-45e0-a960-66955fc24de1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\",\n    \"test\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc3",
+							"host": [
+								"{{HOSTNAME}}"
+							],
+							"path": [
+								"todos",
+								"d1964d86-ce7d-4464-81fa-6d08bbbfbc3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"id": "18ec1649-2821-42bb-b7ee-22c29245689a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{BEARER_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTNAME}}/todos",
+							"host": [
+								"{{HOSTNAME}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"id": "c5a34340-bbe8-418d-90fc-01a9d6af005d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOSTNAME}}/todos",
+							"host": [
+								"{{HOSTNAME}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "36e667af-990b-4226-a690-c7a9a035aea9"
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "80bc11ee-26e1-40f3-8c1e-92da2e725685",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4d5d88a-213b-40e5-83a3-e2ed0110afb5",
+						"exec": [
+							"pm.test(\"\", function () {",
+							"    let {token} = JSON.parse(responseBody);",
+							"    pm.environment.set(\"BEARER_TOKEN\", token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "de61b04e-000a-4bdc-9462-5e16b6a71c51",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"User\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOSTNAME}}/login",
+					"host": [
+						"{{HOSTNAME}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{BEARER_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6bbb1dc3-b3df-430c-a3d6-61903bd1c2e7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5227e944-2d3e-4204-b3c5-b95946b0a2ef",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "4e5183c3-398e-4fd5-86fd-ac105ac502dd",
+			"key": "BEARER_TOKEN",
+			"value": ""
+		},
+		{
+			"id": "716b4fce-161b-45d3-b7d1-1804f65cc4a7",
+			"key": "HOSTNAME",
+			"value": "symfony-api.local"
+		}
+	]
+}

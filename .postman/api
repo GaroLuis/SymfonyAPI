@@ -5,6 +5,7 @@ id = 21929b56-aa4d-4e67-ba98-cce0b8b11945
 
 [relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"7417842-34bac59a-470e-4828-bac0-c3b9b1e77712","path":"Symfony API.json","metaData":{}}
 
 [relations.collections.metaData]
 
