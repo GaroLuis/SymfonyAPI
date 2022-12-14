@@ -107,7 +107,7 @@
 						"disableBodyPruning": true
 					},
 					"request": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -238,12 +238,12 @@
 	],
 	"variable": [
 		{
-			"id": "db91f389-7291-4985-88c2-3fd30bc85aba",
+			"id": "d88b6c8f-22f4-45c0-914e-944aead7daf4",
 			"key": "BEARER_TOKEN",
 			"value": ""
 		},
 		{
-			"id": "e887d9cb-b299-413b-ab79-c2439f214f3c",
+			"id": "ce8446df-9b7a-4a41-bbe1-53b2ad160284",
 			"key": "HOSTNAME",
 			"value": "symfony-api.local"
 		}
