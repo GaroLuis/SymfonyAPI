@@ -13,7 +13,7 @@
 					"item": [
 						{
 							"name": "AllTodos",
-							"_postman_id": "92b5b773-7a05-440d-bd9a-1b2fa0ba1223",
+							"id": "92b5b773-7a05-440d-bd9a-1b2fa0ba1223",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true,
 								"disabledSystemHeaders": {}
@@ -26,9 +26,6 @@
 									"graphql": {
 										"query": "{\n  allTodos {id, text, completedAt, createdAt}\n}",
 										"variables": ""
-									},
-									"options": {
-										"graphql": {}
 									}
 								},
 								"url": "{{HOSTNAME}}/graphql/"
@@ -37,7 +34,7 @@
 						},
 						{
 							"name": "TodosByCompleted",
-							"_postman_id": "a8540c3b-d790-4f43-ab83-e7ba38793cd7",
+							"id": "a8540c3b-d790-4f43-ab83-e7ba38793cd7",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true,
 								"disabledSystemHeaders": {}
@@ -50,9 +47,6 @@
 									"graphql": {
 										"query": "{\n  todosByCompleted(completed: true) {id, text, completedAt}\n}",
 										"variables": ""
-									},
-									"options": {
-										"graphql": {}
 									}
 								},
 								"url": "{{HOSTNAME}}/graphql/"
@@ -60,12 +54,11 @@
 							"response": []
 						}
 					],
-					"_postman_id": "3f530c51-cd36-4654-b374-3adcec546b59",
-					"_postman_isSubFolder": true
+					"id": "3f530c51-cd36-4654-b374-3adcec546b59"
 				},
 				{
 					"name": "Add",
-					"_postman_id": "3b7413d7-9f63-476f-b179-47171521b800",
+					"id": "3b7413d7-9f63-476f-b179-47171521b800",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -87,7 +80,7 @@
 				},
 				{
 					"name": "Edit",
-					"_postman_id": "baea2b4b-a182-4b1b-851c-1550ffed2033",
+					"id": "baea2b4b-a182-4b1b-851c-1550ffed2033",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -109,7 +102,7 @@
 				},
 				{
 					"name": "List",
-					"_postman_id": "83bee5a8-c4af-4ea0-bb73-cd7aba0d4c7e",
+					"id": "83bee5a8-c4af-4ea0-bb73-cd7aba0d4c7e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -128,7 +121,7 @@
 				},
 				{
 					"name": "Delete",
-					"_postman_id": "166341a9-a488-47ef-bf6d-fac9fc5fc995",
+					"id": "166341a9-a488-47ef-bf6d-fac9fc5fc995",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -138,9 +131,31 @@
 						"url": "{{HOSTNAME}}/todos"
 					},
 					"response": []
+				},
+				{
+					"name": "Edit Copy",
+					"id": "2c0098bd-aa4a-447a-a78a-6aaa9ec0761f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc39"
+					},
+					"response": []
 				}
 			],
-			"_postman_id": "2b2ad238-f12c-4ad3-b47e-fd65884f8170"
+			"id": "2b2ad238-f12c-4ad3-b47e-fd65884f8170"
 		},
 		{
 			"name": "Login",
@@ -169,7 +184,7 @@
 					}
 				}
 			],
-			"_postman_id": "e847c4f1-abe7-4663-ad95-ce518cd3a013",
+			"id": "e847c4f1-abe7-4663-ad95-ce518cd3a013",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -223,16 +238,14 @@
 	],
 	"variable": [
 		{
-			"id": "41120d7e-78fd-4dd6-9380-6073e685e8e0",
+			"id": "1967a332-7a06-4a28-a38a-fcb596ee64e6",
 			"key": "BEARER_TOKEN",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "b75cf921-fa47-4701-bbce-e35eb283e2d3",
+			"id": "c876bd72-f60e-4b0b-9fc8-2040d6877f0c",
 			"key": "HOSTNAME",
-			"value": "symfony-api.local",
-			"type": "string"
+			"value": "symfony-api.local"
 		}
 	]
 }
