@@ -101,7 +101,7 @@
 					"response": []
 				},
 				{
-					"name": "Edit Copy",
+					"name": "Edit (PUT)",
 					"id": "2c0098bd-aa4a-447a-a78a-6aaa9ec0761f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -238,12 +238,12 @@
 	],
 	"variable": [
 		{
-			"id": "ec8c0a03-4b32-4486-9a68-5b0c8e9fc5f9",
+			"id": "db91f389-7291-4985-88c2-3fd30bc85aba",
 			"key": "BEARER_TOKEN",
 			"value": ""
 		},
 		{
-			"id": "d1605f1e-f619-4a73-8a51-fe167a3c2a9e",
+			"id": "e887d9cb-b299-413b-ab79-c2439f214f3c",
 			"key": "HOSTNAME",
 			"value": "symfony-api.local"
 		}
