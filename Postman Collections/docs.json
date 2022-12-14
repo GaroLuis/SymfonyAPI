@@ -1,0 +1,238 @@
+{
+	"info": {
+		"_postman_id": "1600453c-b158-4f05-b3fd-ed5ebe19236e",
+		"name": "Symfony API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "graphql",
+					"item": [
+						{
+							"name": "AllTodos",
+							"_postman_id": "92b5b773-7a05-440d-bd9a-1b2fa0ba1223",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\n  allTodos {id, text, completedAt, createdAt}\n}",
+										"variables": ""
+									},
+									"options": {
+										"graphql": {}
+									}
+								},
+								"url": "{{HOSTNAME}}/graphql/"
+							},
+							"response": []
+						},
+						{
+							"name": "TodosByCompleted",
+							"_postman_id": "a8540c3b-d790-4f43-ab83-e7ba38793cd7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true,
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\n  todosByCompleted(completed: true) {id, text, completedAt}\n}",
+										"variables": ""
+									},
+									"options": {
+										"graphql": {}
+									}
+								},
+								"url": "{{HOSTNAME}}/graphql/"
+							},
+							"response": []
+						}
+					],
+					"_postman_id": "3f530c51-cd36-4654-b374-3adcec546b59",
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Add",
+					"_postman_id": "3b7413d7-9f63-476f-b179-47171521b800",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"Testing!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOSTNAME}}/todos"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"_postman_id": "baea2b4b-a182-4b1b-851c-1550ffed2033",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed\": true,\n    \"text\": \"Edited\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOSTNAME}}/todos/d1964d86-ce7d-4464-81fa-6d08bbbfbc39"
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"_postman_id": "83bee5a8-c4af-4ea0-bb73-cd7aba0d4c7e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{BEARER_TOKEN}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{HOSTNAME}}/todos"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"_postman_id": "166341a9-a488-47ef-bf6d-fac9fc5fc995",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{HOSTNAME}}/todos"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "2b2ad238-f12c-4ad3-b47e-fd65884f8170"
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "de5271d6-ecc4-4017-8e24-5a18982fc1e5",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "10646121-ff7b-4032-ad3f-4e354b5d9596",
+						"exec": [
+							"pm.test(\"\", function () {",
+							"    let {token} = JSON.parse(responseBody);",
+							"    pm.environment.set(\"BEARER_TOKEN\", token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"_postman_id": "e847c4f1-abe7-4663-ad95-ce518cd3a013",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"User\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{HOSTNAME}}/login"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{BEARER_TOKEN}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2490db20-9e78-428c-ae4b-8ae9dabf42f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "511137bd-fc79-4364-8b18-8c0bf8407abd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "41120d7e-78fd-4dd6-9380-6073e685e8e0",
+			"key": "BEARER_TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "b75cf921-fa47-4701-bbce-e35eb283e2d3",
+			"key": "HOSTNAME",
+			"value": "symfony-api.local",
+			"type": "string"
+		}
+	]
+}
