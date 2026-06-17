@@ -2,7 +2,7 @@ s=app
 u=www-data
 
 .PHONY: init
-init: rm up copy-env install db ## recreate containers and install dependencies
+init: rm up copy-env install jwt db ## recreate containers and install dependencies
 .PHONY: copy-env
 copy-env:
 	cp --no-clobber .env .env.local
@@ -23,6 +23,9 @@ bash: ## Connect to the development container
 .PHONY: install
 install: ## install project dependencies
 	docker compose run --user=${u} --rm ${s} sh -lc 'composer install'
+.PHONY: jwt
+jwt: ## generate jwt keypair
+	docker compose run --user=${u} --rm ${s} sh -lc 'bin/console lexik:jwt:generate-keypair'
 .PHONY: db
 db: ## create database, migrations and fixtures
 	docker compose run --user=${u} --rm ${s} sh -lc 'bin/console doctrine:database:create --if-not-exists'
