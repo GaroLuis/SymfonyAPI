@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\User\Data\Entity;
 
-use App\Repository\UserRepository;
+use App\Todo\Data\Entity\TodoEntity;
+use App\User\Data\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,8 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[ORM\Table(name: 'users')]
+class UserEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'NONE')]
@@ -30,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword;
 
-    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Todo::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'userId', targetEntity: TodoEntity::class, orphanRemoval: true)]
     private Collection $todos;
 
     public function __construct(string $username, string $plainPassword)
@@ -59,7 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * A visual identifier that represents this user.
+     * A visual identifier that represents this User.
      *
      * @see UserInterface
      */
@@ -74,7 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // guarantee every User at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -120,7 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
+        // If you store any temporary, sensitive data on the User, clear it here
         // $this->plainPassword = null;
     }
 
@@ -129,7 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->todos;
     }
 
-    public function addTodo(Todo $todo): self
+    public function addTodo(TodoEntity $todo): self
     {
         if (!$this->todos->contains($todo)) {
             $this->todos[] = $todo;
@@ -139,7 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeTodo(Todo $todo): self
+    public function removeTodo(TodoEntity $todo): self
     {
         if ($this->todos->removeElement($todo)) {
             // set the owning side to null (unless already changed)

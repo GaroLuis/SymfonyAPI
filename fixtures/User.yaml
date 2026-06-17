@@ -1,4 +1,4 @@
-App\Entity\User:
+App\User\Data\Entity\UserEntity:
     user1:
         __construct:
             username: 'User'

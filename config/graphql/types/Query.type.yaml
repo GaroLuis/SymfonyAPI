@@ -5,10 +5,10 @@ Query:
         fields:
             allTodos:
                 type: '[Todo]'
-                resolve: "@=resolver('all_todos', [args])"
-            todosByCompleted:
+                resolve: "@=resolver('all_Todos', [args])"
+            TodosByCompleted:
                 type: '[Todo]'
                 args:
                     completed:
                         type: 'Boolean'
-                resolve: "@=resolver('todo_by_completed', [args])"
+                resolve: "@=resolver('Todo_by_completed', [args])"

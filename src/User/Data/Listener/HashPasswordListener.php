@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Listener;
+namespace App\User\Data\Listener;
 
-use App\Entity\User;
+use App\User\Data\Entity\UserEntity;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -20,7 +20,7 @@ class HashPasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof User) {
+        if (!$entity instanceof UserEntity) {
             return;
         }
 
@@ -31,7 +31,7 @@ class HashPasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof User) {
+        if (!$entity instanceof UserEntity) {
             return;
         }
 
@@ -49,9 +49,9 @@ class HashPasswordListener implements EventSubscriber
     }
 
     /**
-     * @param User $entity
+     * @param UserEntity $entity
      */
-    private function encodePassword(User $entity): void
+    private function encodePassword(UserEntity $entity): void
     {
         if (!$entity->getPlainPassword()) {
             return;

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace App\Graphql\Type;
+namespace App\Common\Framework;
 
 use GraphQL\Language\AST\Node;
 
-class DateTimeType
+class DateTimeGraphQLType
 {
     public static function serialize(\DateTimeInterface $value): string
     {
