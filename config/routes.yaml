@@ -1,5 +1,5 @@
-controllers:
-    resource: ../src/Controller/
+todo_controller:
+    resource: ../src/Todo/Framework/Controller/
     type: attribute
 
 api_login_check:

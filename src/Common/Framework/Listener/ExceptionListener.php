@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Listener;
+namespace App\Common\Framework\Listener;
 
-use App\Exception\DomainException;
+use App\Common\Domain\DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
