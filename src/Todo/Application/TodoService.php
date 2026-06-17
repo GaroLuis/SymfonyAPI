@@ -25,8 +25,11 @@ class TodoService implements TodoServiceInterface
     {
         $todo = new Todo();
 
+        if (null !== $dto->id) {
+            $todo->setId($dto->id);
+        }
+
         $todo
-            ->setId($dto->id)
             ->setText($dto->text)
             ->setCompletedAt($dto->completedAt)
             ->setUser($user)
