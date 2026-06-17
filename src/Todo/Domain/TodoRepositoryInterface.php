@@ -7,6 +7,8 @@ use App\User\Domain\User;
 
 interface TodoRepositoryInterface extends CommonRepositoryInterface
 {
+    public function getById(string $id): ?Todo;
+
     public function getTodosByUser(User $user, bool $completed = null): array;
 
     public function add(Todo $todo): void;
