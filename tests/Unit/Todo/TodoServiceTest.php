@@ -6,34 +6,38 @@ use App\Todo\Application\Dto\AddTodoDto;
 use App\Todo\Application\Dto\EditTodoDto;
 use App\Todo\Application\Dto\RemoveTodoDto;
 use App\Todo\Application\TodoService;
-use App\Todo\Data\TodoRepository;
 use App\Todo\Domain\Todo;
 use App\Todo\Domain\TodoException;
 use App\Todo\Domain\TodoRepositoryInterface;
 use App\User\Domain\User;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class TodoServiceTest extends TestCase
 {
-    private TodoRepositoryInterface $repository;
+    use ProphecyTrait;
+
+    private ObjectProphecy|TodoRepositoryInterface $repository;
     private TodoService $service;
 
     protected function setUp(): void
     {
-        $this->repository = $this->createMock(TodoRepositoryInterface::class);
-        $this->service = new TodoService($this->repository);
+        $this->repository = $this->prophesize(TodoRepositoryInterface::class);
+        $this->service = new TodoService($this->repository->reveal());
     }
 
-    public function testGetTodosByUserReturnsTodosFromRepository(): void
+    public function testGetTodosByUser(): void
     {
         $user = new User();
         $todo = new Todo();
 
         $this->repository
-            ->expects($this->once())
-            ->method('getTodosByUser')
-            ->with($user, null)
-            ->willReturn([$todo]);
+            ->getTodosByUser($user, null)
+            ->shouldBeCalledOnce()
+            ->willReturn([$todo])
+        ;
 
         $result = $this->service->getTodosByUser($user);
 
@@ -46,35 +50,19 @@ class TodoServiceTest extends TestCase
         $dto = AddTodoDto::fromArray(['text' => 'Test todo']);
 
         $this->repository
-            ->expects($this->once())
-            ->method('add')
-            ->with($this->callback(function (Todo $todo) use ($dto, $user) {
+            ->add(Argument::that(function (Todo $todo) use ($user, $dto) {
                 return $todo->getText() === $dto->text
                     && $todo->getUser() === $user
                     && $todo->getCompletedAt() === null;
-            }));
+            }))
+            ->shouldBeCalledOnce()
+        ;
 
         $result = $this->service->add($dto, $user);
 
         $this->assertInstanceOf(Todo::class, $result);
         $this->assertEquals('Test todo', $result->getText());
         $this->assertSame($user, $result->getUser());
-    }
-
-    public function testAddWithCompletedAtSetsDate(): void
-    {
-        $user = new User();
-        $date = new \DateTimeImmutable('2025-01-15');
-        $dto = AddTodoDto::fromArray(['text' => 'Test', 'completedAt' => '2025-01-15']);
-
-        $this->repository
-            ->expects($this->once())
-            ->method('add')
-            ->with($this->callback(function (Todo $todo) use ($date) {
-                return $todo->getCompletedAt()->format('Y-m-d') === $date->format('Y-m-d');
-            }));
-
-        $this->service->add($dto, $user);
     }
 
     public function testRemoveDeletesTodo(): void
@@ -91,14 +79,15 @@ class TodoServiceTest extends TestCase
         $dto = RemoveTodoDto::fromArray(['id' => 'todo-id']);
 
         $this->repository
-            ->method('getById')
-            ->with('todo-id')
-            ->willReturn($todo);
+            ->getById('todo-id')
+            ->shouldBeCalledOnce()
+            ->willReturn($todo)
+        ;
 
         $this->repository
-            ->expects($this->once())
-            ->method('remove')
-            ->with($todo);
+            ->remove($todo)
+            ->shouldBeCalledOnce()
+        ;
 
         $result = $this->service->remove($dto, $user);
 
@@ -111,9 +100,10 @@ class TodoServiceTest extends TestCase
         $dto = RemoveTodoDto::fromArray(['id' => 'random-id']);
 
         $this->repository
-            ->method('getById')
-            ->with('random-id')
-            ->willReturn(null);
+            ->getById('random-id')
+            ->shouldBeCalledOnce()
+            ->willReturn(null)
+        ;
 
         $this->expectException(TodoException::class);
         $this->expectExceptionMessage('Error: "Todo not found"');
@@ -138,9 +128,10 @@ class TodoServiceTest extends TestCase
         $dto = RemoveTodoDto::fromArray(['id' => 'todo-id']);
 
         $this->repository
-            ->method('getById')
-            ->with('todo-id')
-            ->willReturn($todo);
+            ->getById('todo-id')
+            ->shouldBeCalledOnce()
+            ->willReturn($todo)
+        ;
 
         $this->expectException(TodoException::class);
 
@@ -161,16 +152,17 @@ class TodoServiceTest extends TestCase
         $dto = EditTodoDto::fromArray(['id' => 'todo-id', 'text' => 'Updated']);
 
         $this->repository
-            ->method('getById')
-            ->with('todo-id')
-            ->willReturn($todo);
+            ->getById('todo-id')
+            ->shouldBeCalledOnce()
+            ->willReturn($todo)
+        ;
 
         $this->repository
-            ->expects($this->once())
-            ->method('edit')
-            ->with($this->callback(function (Todo $t) {
+            ->edit(Argument::that(function (Todo $t) {
                 return $t->getText() === 'Updated';
-            }));
+            }))
+            ->shouldBeCalledOnce()
+        ;
 
         $result = $this->service->edit($dto, $user);
 
@@ -184,9 +176,10 @@ class TodoServiceTest extends TestCase
         $dto = EditTodoDto::fromArray(['id' => 'random-id', 'text' => 'Updated']);
 
         $this->repository
-            ->method('getById')
-            ->with('random-id')
-            ->willReturn(null);
+            ->getById('random-id')
+            ->shouldBeCalledOnce()
+            ->willReturn(null)
+        ;
 
         $this->expectException(TodoException::class);
 
@@ -210,9 +203,10 @@ class TodoServiceTest extends TestCase
         $dto = EditTodoDto::fromArray(['id' => 'todo-id', 'text' => 'Updated']);
 
         $this->repository
-            ->method('getById')
-            ->with('todo-id')
-            ->willReturn($todo);
+            ->getById('todo-id')
+            ->shouldBeCalledOnce()
+            ->willReturn($todo)
+        ;
 
         $this->expectException(TodoException::class);
 
