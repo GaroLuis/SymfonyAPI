@@ -30,8 +30,8 @@ services:
   db:
     image: postgres:13
     environment:
-      TZ: Europe/London
-      PGTZ: Europe/London
+      TZ: UTC
+      PGTZ: UTC
       POSTGRES_PASSWORD: secret
       POSTGRES_USER: default
     ports:

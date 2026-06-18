@@ -13,7 +13,7 @@ class EditTodoDto
         $dto = new self();
         $dto->id = $data['id'];
         $dto->text = $data['text'];
-        $dto->completedAt = isset($data['completed']) ? new \DateTimeImmutable() : null;
+        $dto->completedAt = isset($data['completed']) ? new \DateTimeImmutable('now', new \DateTimeZone('UTC')) : null;
 
         return $dto;
     }

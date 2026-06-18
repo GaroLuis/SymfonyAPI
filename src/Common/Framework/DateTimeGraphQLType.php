@@ -8,16 +8,17 @@ class DateTimeGraphQLType
 {
     public static function serialize(\DateTimeInterface $value): string
     {
-        return $value->format('Y-m-d H:i:s');
+        return (new \DateTimeImmutable('@' . $value->getTimestamp(), new \DateTimeZone('UTC')))
+            ->format(\DateTime::ATOM);
     }
 
     public static function parseValue($value): \DateTimeImmutable
     {
-        return new \DateTimeImmutable($value);
+        return new \DateTimeImmutable($value, new \DateTimeZone('UTC'));
     }
 
     public static function parseLiteral(Node $valueNode): \DateTimeImmutable
     {
-        return new \DateTimeImmutable($valueNode->value);
+        return new \DateTimeImmutable($valueNode->value, new \DateTimeZone('UTC'));
     }
 }

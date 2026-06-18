@@ -20,7 +20,7 @@ class Todo
     public function __construct()
     {
         $this->id = (string) Uuid::v4();
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function getId(): ?string
@@ -88,8 +88,8 @@ class Todo
         return [
             'id' => $this->getId(),
             'text' => $this->getText(),
-            'completed_at' => $this->getCompletedAt()?->format('d/m/Y'),
-            'created_at' => $this->getCreatedAt()->format('d/m/Y')
+            'completed_at' => $this->getCompletedAt()?->format(\DateTime::ATOM),
+            'created_at' => $this->getCreatedAt()->format(\DateTime::ATOM)
         ];
     }
 }
